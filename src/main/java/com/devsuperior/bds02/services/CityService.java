@@ -1,6 +1,8 @@
 package com.devsuperior.bds02.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +27,11 @@ public class CityService {
 	
 	@Autowired
 	private CityRepository repository;
+	
+	public List<CityDTO> findAll() {
+		List<City> list = repository.findAll(Sort.by("name"));
+		return list.stream().map(x -> new CityDTO(x)).collect(Collectors.toList());
+	}
 
 	@Transactional(readOnly = true)
 	public Page<CityDTO> findAllPaged(Pageable pageable) {
