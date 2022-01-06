@@ -58,7 +58,7 @@ public class CityService {
 	}
 
 	@Transactional
-	public @Valid CityDTO update(Long id, @Valid CityDTO dto) {
+	public  CityDTO update(Long id, CityDTO dto) {
 		try {
 			City entity = repository.getById(id);
 			entity.setName(dto.getName());

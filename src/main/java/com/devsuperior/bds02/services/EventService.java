@@ -59,7 +59,7 @@ public class EventService {
 	}
 
 	@Transactional
-	public @Valid EventDTO update(Long id, @Valid EventDTO dto) {
+	public EventDTO update(Long id, EventDTO dto) {
 		try {
 			Event entity = repository.getById(id);
 			copyDtoToEntity(dto, entity);
